@@ -62,25 +62,15 @@ def add_pet_to_customer(customer, pet):
 def customer_can_afford_pet(customer, pet):
     return customer["cash"] >= pet["price"]
 
-# def pet_not_found(shop_info, pet_search):
-#     pet_list = []
-#     for pet in shop_info["pets"]:
-#         if pet["name"] == pet_search:
-#             pet_list.append(pet)
-#         else:
-#             continue
-#     if len(pet_list) == 0:
-#         print("Sorry, I cannot find a pet by that name.")
-
 
 # grab price -> remove cash from customer -> add cash to shop ->
 # -> Retrieve pet data and give to customer -> Remove pet data from shop
 
 def sell_pet_to_customer(shop_info, pet, customer):
 
-    # if pet_not_found(shop_info,pet) == True:
-
-    if customer_can_afford_pet(customer, pet) == True:
+    if type(pet) != dict:
+        print("Pet not found")
+    elif customer_can_afford_pet(customer, pet) == True:
             cash = pet["price"]
             remove_customer_cash(customer, cash)
             add_or_remove_cash(shop_info, cash)
