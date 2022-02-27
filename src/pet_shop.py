@@ -62,18 +62,32 @@ def add_pet_to_customer(customer, pet):
 def customer_can_afford_pet(customer, pet):
     return customer["cash"] >= pet["price"]
 
+# def pet_not_found(shop_info, pet_search):
+#     pet_list = []
+#     for pet in shop_info["pets"]:
+#         if pet["name"] == pet_search:
+#             pet_list.append(pet)
+#         else:
+#             continue
+#     if len(pet_list) == 0:
+#         print("Sorry, I cannot find a pet by that name.")
 
 
 # grab price -> remove cash from customer -> add cash to shop ->
 # -> Retrieve pet data and give to customer -> Remove pet data from shop
 
 def sell_pet_to_customer(shop_info, pet, customer):
-    if customer_can_afford_pet(customer, pet) == False:
-        print(f"Sorry, {customer}. I can't give credit. Come back when you're a little... mmmmm... richer!")
-        #morshu reference from "Link: The Faces of Evil"
+
+    # if pet_not_found(shop_info,pet) == True:
+
+    if customer_can_afford_pet(customer, pet) == True:
+            cash = pet["price"]
+            remove_customer_cash(customer, cash)
+            add_or_remove_cash(shop_info, cash)
+            add_pet_to_customer(customer, pet)
+            increase_pets_sold(shop_info, 1)
+            remove_pet_by_name(shop_info, pet)
     else:
-        cash = pet["price"]
-        remove_customer_cash(customer, cash)
-        add_or_remove_cash(shop_info, cash)
-        add_pet_to_customer(customer, pet)
-        remove_pet_by_name(shop_info, pet)
+        print(f"Sorry, {customer['name']}. I can't give credit.")
+        print(f"Come back when you're a little... mmmmm... richer!")
+        #morshu reference from "Link: The Faces of Evil"
